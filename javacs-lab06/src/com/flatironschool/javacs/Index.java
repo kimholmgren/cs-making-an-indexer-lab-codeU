@@ -57,8 +57,13 @@ public class Index {
 		// make a TermCounter and count the terms in the paragraphs
         // TODO: fill this in
 		
+		TermCounter counter = new TermCounter(url.toString());
+		counter.processElements(paragraphs);
+		
 		// for each term in the TermCounter, add the TermCounter to the index
-        // TODO: fill this in
+    for(String term: counter.keySet()) {
+    	add(term, counter);
+    }
 	}
 
 	/**
@@ -97,12 +102,9 @@ public class Index {
 		Index indexer = new Index();
 
 		String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
-		Elements paragraphs = wf.fetchWikipedia(url);
-		indexer.indexPage(url, paragraphs);
-		
-		url = "https://en.wikipedia.org/wiki/Programming_language";
-		paragraphs = wf.fetchWikipedia(url);
-		indexer.indexPage(url, paragraphs);
+		Elements paras = wf.fetchWikipedia(url);
+		indexer.indexPage(url, paras);
+
 		
 		indexer.printIndex();
 	}
